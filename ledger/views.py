@@ -12,8 +12,5 @@ def recipes(request):
 def recipe(request, name):
     recipe = Recipe.objects.get(name=name)
     ingredients = recipe.ingredients.all()
-    ctx = {
-        "recipe": recipe,
-        "ingredients": ingredients
-    }
+    ctx = {'name': str(recipe), 'ingredients': ingredients}
     return render(request, 'ledger/recipe.html', ctx)

@@ -4,7 +4,8 @@ from django.urls import reverse
 
 # Create your models here.
 
-class Ingredient (models.Model):
+
+class Ingredient(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -12,10 +13,10 @@ class Ingredient (models.Model):
     
     def get_absolute_url(self):
         return reverse('ledger:ingredient', args=[str(self.name)])
-    
-class Recipe (models.Model):
+
+
+class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    date_added = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return f"{self.name}"
@@ -25,8 +26,9 @@ class Recipe (models.Model):
     
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=100)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-
+    ingredient = models.ForeignKey(
+        Ingredient, on_delete=models.CASCADE, related_name="recipe")
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name="ingredients")
     def __str__(self):
         return f"{self.ingredient} - {self.quantity}"
