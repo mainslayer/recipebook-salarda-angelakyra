@@ -10,6 +10,16 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
+        {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'ledger:logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'ledger:login' %}">
+            <button type="button">Login</button>
+        </a>
+        {% endif %}
         {% block scripts %}{% endblock %}
     </body>
 </html>
