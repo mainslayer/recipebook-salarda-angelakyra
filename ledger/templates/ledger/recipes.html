@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 
+<h2> Recipe List </h2>
+
 {% block content %}
     {% for recipe in recipes %}
     <ul><li><a href="{{ recipe.get_absolute_url}}">{{ recipe.name }}</a></li></ul>
