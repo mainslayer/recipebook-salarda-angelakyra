@@ -1,14 +1,22 @@
 from django.db import models
-from datetime import datetime
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+def validate_bio_length(value):
+    if len(value) > 255:
+        raise ValidationError(
+            _('Short bio must be 255 characters or less. It is %(length)d characters long.'),
+            params={'length': len(value)},
+        )
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    short_bio = models.TextField(blank=True)
+    short_bio = models.TextField(blank=True, validators=[validate_bio_length])
 
 
 class Ingredient(models.Model):
