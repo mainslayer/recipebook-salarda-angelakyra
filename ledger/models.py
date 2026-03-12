@@ -43,7 +43,7 @@ class Recipe(models.Model):
         return f"{self.name}"
     
     def get_absolute_url(self):
-        return reverse('ledger:recipe', args=[str(self.name)])
+        return reverse('ledger:recipe', args=[str(self.pk)])
     
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=100)
