@@ -3,6 +3,10 @@
 
 <h2> Recipe Details</h2>
 <h3>{{ name }} by {{ author }}</h3>
+    {% for image in images %}
+    {% if image %}
+    <img src="{{ image.image.url }}" alt="{{ image.image.description }}">
+    {% endif %}{% endfor %}
     <ul>
         {% for ing in ingredients %}
             <li>{{ ing }}</li>

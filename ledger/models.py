@@ -18,6 +18,9 @@ class Profile(models.Model):
     name = models.CharField(max_length=50)
     short_bio = models.TextField(blank=True, validators=[validate_bio_length])
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=100)
@@ -50,3 +53,9 @@ class RecipeIngredient(models.Model):
         Recipe, on_delete=models.CASCADE, related_name="ingredients")
     def __str__(self):
         return f"{self.ingredient} - {self.quantity}"
+    
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='images/', null=True)
+    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey(
+        Recipe, on_delete=models.CASCADE, related_name="image")
